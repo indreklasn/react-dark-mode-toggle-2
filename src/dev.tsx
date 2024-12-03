@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import LottiePlayerLight from "react-lottie-player/dist/LottiePlayerLight";
 
 import { DarkModeToggle } from ".";
+import animationData from "./animationData.json";
 
 /** Local development page w/ animation controls - called when running 'yarn dev' */
 
@@ -31,8 +32,6 @@ function AnimationDebugger() {
   const [goTo, setGoTo] = React.useState<number>(isDarkMode ? 42 : 0);
   const segments: AnimationSegment = [segmentFrom, segmentTo];
 
-  const [animationData, setAnimationData] = React.useState<object>();
-
   React.useEffect(() => {
     console.log(`Should start in ${isDarkMode ? "dark" : "light"} mode`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,12 +57,6 @@ function AnimationDebugger() {
   const onLottiePlayerMounted = () => {
     setIsLottiePlayerMounted(true);
   };
-
-  React.useEffect(() => {
-    import("./animationData.json").then(setAnimationData);
-  }, []);
-
-  if (!animationData) return <div>Loading...</div>;
 
   return (
     <div
